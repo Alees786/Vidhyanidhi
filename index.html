@@ -5,8 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vidhyanidhi Collection</title>
 <link rel="stylesheet" href="style.css">
+<style>
+#maint{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+#maint .mbox{max-width:460px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 30px;box-shadow:0 8px 24px #0002}
+#maint .mico{display:inline-block;font-size:60px;line-height:1;color:var(--dark);animation:mspin 8s linear infinite}
+#maint h1{margin:10px 0 4px}#maint h3{margin:0 0 16px;color:#556;font-weight:600}
+#maint p{margin:8px 0;font-size:15px}#maint #muntil{font-weight:700;color:var(--deep)}
+@keyframes mspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#maint .mico{animation:none}}
+</style>
 </head>
 <body>
+
+<div id="maint" hidden>
+  <div class="mbox">
+    <div class="mico">&#9881;</div>
+    <h1>Under Maintenance</h1>
+    <h3>Nusrath Secondary School &bull; Vidhyanidhi Collection</h3>
+    <p id="mmsg"></p>
+    <p id="muntil"></p>
+  </div>
+</div>
 
 <div id="login">
   <h1>VIDHYANIDHI</h1>

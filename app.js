@@ -45,7 +45,14 @@ function init() {
   $('cd').value = $('td').value = today();
   show('coll'); loadDash();
 }
-if (T && ME) init();
+/* ---- maintenance mode (switch in config.js; add ?preview to the address to bypass for testing) ---- */
+const UNDER_MAINT = typeof MAINTENANCE !== 'undefined' && !!MAINTENANCE.on && !new URLSearchParams(location.search).has('preview');
+if (UNDER_MAINT) {
+  $('login').hidden = true; $('app').hidden = true; $('maint').hidden = false;
+  $('mmsg').textContent = MAINTENANCE.message || 'We are updating the system. Please check back shortly.';
+  $('muntil').textContent = MAINTENANCE.until || '';
+} else if (typeof MAINTENANCE !== 'undefined' && MAINTENANCE.on) document.title = '[MAINTENANCE ON] ' + document.title;
+if (T && ME && !UNDER_MAINT) init();
 
 /* ---- tabs ---- */
 $('nav').onclick = e => { if (e.target.dataset.t) show(e.target.dataset.t); };
@@ -172,7 +179,7 @@ async function stuDel(lf) { if (confirm('Delete student LF ' + lf + '?')) { toas
 
 const HEAD = ['Student Name', 'Class', 'Division', 'Admission No', 'LF No', 'Opening Balance'];
 $('stpl').onclick = () => {
-  const ws = XLSX.utils.aoa_to_sheet([HEAD, ['Alees', '5', 'A', 'ADM1001', '701', 0]]);
+  const ws = XLSX.utils.aoa_to_sheet([HEAD, ['Sample Student', '5', 'A', 'ADM1001', '701', 0]]);
   ws['!cols'] = HEAD.map(() => ({wch: 18}));
   const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Students'); XLSX.writeFile(wb, 'Student_Import_Template.xlsx');
 };
